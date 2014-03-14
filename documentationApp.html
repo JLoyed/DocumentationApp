@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<title></title>
+</head>
+
+<body>
+
+<form id="testForm" action="javascript:test()">
+	<dl>
+		<dt><label for="name">Name:</label></dt>
+		<dd><input id="name" type="text" name="name"/></dd>
+	</dl>
+
+	<dl>
+		<dt><label for="description">Description:</label></dt>
+		<dd><input id="description" type="text" name="description"/></dd>
+	</dl>
+
+	<dl>
+        <dt>Is Public:</dt>
+        <dd><label><input type="checkbox" name="isPublic" value="true"></label></dd>
+    </dl>
+
+    <dl>
+    	<dt>Authentication Type:</dt>
+		<dd>Application:<input type="radio" name="authenticationType" value="application"/>
+		User:<input type="radio" name="authenticationType" value="user"/><br/></dd>
+	</dl>
+
+	<dl>
+		<dt>Security:</dt>
+		<dd>Application:<input type="radio" name="security" value="application"/>
+			User:<input type="radio" name="security" value="user"/><br/></dd>
+	</dl>
+
+	<dl>
+		<dt>Notes:</dt>
+		<dd><input type="text" name="notes" maxlength="120" size="12"/> <br/></dd>
+	</dl>
+
+	<dl>
+		<dt>Method:</dt>
+		<dd>Get:<input type="radio" name="request.method" value="GET"/></dd>
+		<dd>Post:<input type="radio" name="request.method" value="POST"/></dd>
+		<dd>Update:<input type="radio" name="request.method" value="UPDATE"/></dd>
+		<dd>Delete:<input type="radio" name="request.method" value="DELETE"/><br/></dd>
+	</dl>
+
+	<dl>
+		<dt><label for="uris">URIs:</label></dt>
+		<dd><input id="uris" type="text" name="request.uris[]"/></dd>
+		<dd><input id="uris" type="text" name="request.uris[]"/></dd>
+	</dl>
+
+	<dl>
+		<dt><label for="internalUris">Internal URIs:</label></dt>
+		<dd><input id="internalUris" type="text" name="request.internalUris[]"/></dd>
+		<dd><input id="internalUris" type="text" name="request.internalUris[]"/></dd>
+	</dl>
+
+	<dl>
+		<dt><label for="headers">Headers:</label></dt>
+		<dd><input id="headers" type="text" name="request.headers.X-Request-Header"/></dd>
+	</dl>
+
+	<dl>
+		<dt>Body:</dt>
+		<dd>
+			<textarea id="requestBody" rows="5" cols="20" name="request.body.">body json</textarea>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="parameters">Parameters:</label></dt>
+		<dd>Name:<input type="text" name="request.parameters[].name"></dd>
+		<dd>Type:
+		<select name="request.parameters[].type">
+			<option value="msk">String</option>
+			<option value="spb">Bool</option>
+			<option value="spb">Guid</option>
+			<option value="spb">Int</option>
+		</select>
+		</dd>
+		<dd>Required:<input type="checkbox" name="request.parameters[].required" value="true"></dd>
+		<dd>Description:<input type="text" name="request.parameters[].description"></dd>
+		<dd>Default:<input type="text" name="request.parameters[].default"></dd>
+	</dl>
+
+	<dl>
+		<dt>Notes:</dt>
+		<dd><input type="text" name="request.notes"></dd>
+	</dl>
+
+	<dl>
+		<dt>Status Code:</dt>
+		<dd><input type="text" name="responses[].statusCode"></dd>
+	</dl>
+
+	<dl>
+		<dt>Description:</dt>
+		<dd><input type="text" name="responses[].description"></dd>
+	</dl>
+	
+	<dl>
+		<dt>Headers:</dt>
+		<dd><input id="headers" type="text" name="responses[].headers.X-Request-Header"/></dd>
+	</dl>
+
+	<dl>
+		<dt>Body:</dt>
+		<dd>Key:<input type="text" id="body" name="responses[].body.key"> Value:<input type="text" id="body" name="responses[].body.value"></dd>
+		<dd>Key:<input type="text" id="body" name="responses[].body.key"> Value:<input type="text" id="body" name="responses[].body.value"></dd>
+	</dl>
+
+	<dl>
+		<dt>Parameters:</dt>
+		<dd>Name:<input type="text" name="responses[].parameters[].name"></dd>
+		<dd>Type:
+		<select name="responses[].parameters[].type">
+			<option value="msk">String</option>
+			<option value="spb">Bool</option>
+			<option value="spb">Guid</option>
+			<option value="spb">Int</option>
+		</select>
+		</dd>
+		<dd>Required:<input type="checkbox" name="responses[].parameters[].required" value="true"></dd>
+		<dd>Description:<input type="text" name="responses[].parameters[].description"></dd>
+		<dd>Default:<input type="text" name="responses[].parameters[].default"></dd>
+	</dl>
+
+	<dl>
+		<dt>Notes:</dt>
+		<dd><input type="text" name="responses[].notes"></dd>
+	</dl>
+
+	<dl>
+		<dt></dt>
+		<dd><input type="submit" /></dd>
+	</dl>
+</form>
+
+<pre><code id="testArea">
+</code></pre>
+
+<script type="text/javascript" src="form2js.js"></script>
+<script type="text/javascript">
+	function test()
+	{
+		var formData = form2js('testForm', '.', true,
+				function(node)
+				{
+					if (node.id && node.id.match(/callbackTest/))
+					{
+						return { name: node.id, value: node.innerHTML };
+					}
+				});
+
+		document.getElementById('testArea').innerHTML = JSON.stringify(formData, null, '\t');
+	}
+</script>
+</body>
+</html>
